@@ -3,7 +3,7 @@ import scipy.io
 import numpy as np
 import math
 
-def pad_for_division_n(arr, n=16):
+def pad_for_division_n(arr, n=32):
   """
   Pads a numpy array with zeros to make it divisible by 2 n times. 
   Params:
