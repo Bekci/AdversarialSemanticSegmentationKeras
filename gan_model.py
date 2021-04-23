@@ -1,7 +1,7 @@
 from tensorflow import keras
 import tensorflow as tf
 from model import Deeplabv3
-from model_discriminator import get_discriminator
+from model_discriminator import get_discriminator, get_discriminator_tiny
 import os
 
 class AdverGAN(keras.Model):
@@ -14,7 +14,7 @@ class AdverGAN(keras.Model):
     if disc_model_path is not None:
       self.disc = load_model(disc_model_path)
     else:
-      self.disc = get_discriminator(target_size[0], target_size[1], n_class)
+      self.disc = get_discriminator_tiny(target_size[0], target_size[1], n_class)
     self.lambda_adv = lambda_adv
     self.t_size = target_size
   
@@ -123,5 +123,5 @@ class AdverGAN(keras.Model):
         "disc_acc": self.disc_metric.result(), "gan_acc": self.gan_metric.result()}
 
   def save_models(self, models_save_dir):
-    self.gen.save(os.path.join(models_save_dir, "generator.h5"))
-    self.disc.save(os.path.join(models_save_dir, "discriminator.h5"))
+    self.gen.save(os.path.join(models_save_dir, "generator_tiny.h5"))
+    self.disc.save(os.path.join(models_save_dir, "discriminator_tiny.h5"))
